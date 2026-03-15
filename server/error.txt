@@ -1,0 +1,2 @@
+src/controllers/auth.controller.ts(55,64): error TS2339: Property 'errors' does not exist on type 'ZodError<any>'.
+src/controllers/auth.controller.ts(89,64): error TS2339: Property 'errors' does not exist on type 'ZodError<any>'.
