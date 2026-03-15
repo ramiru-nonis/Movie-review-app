@@ -1,288 +1,183 @@
-Movie Review Application
+# Movie Review Application
 
-A full-stack Movie Review Application built using Next.js, Node.js, and SQLite that integrates with The Movie Database (TMDB) API.
-Users can search for movies, view detailed information, and submit their own reviews.
+## 1. Project Overview
 
-This project was developed as part of a Full Stack Developer / Software Engineer Intern technical assignment.
+The **Movie Review Application** is a full-stack web application that allows users to search for movies, view detailed information, and submit their own reviews.
 
-Tech Stack
-Frontend
+The application integrates with **The Movie Database (TMDB) API** to fetch movie data such as posters, descriptions, and trailers. Users can create accounts, log in securely, and write or manage their own reviews for movies.
 
-Next.js (App Router)
+### Tech Stack
 
-TypeScript
+**Frontend**
 
-Tailwind CSS
+* Next.js (App Router)
+* TypeScript
+* Tailwind CSS
+* React Query
 
-React Query (for data fetching and caching)
+**Backend**
 
-Backend
+* Node.js
+* Express.js
+* REST API architecture
+* JWT authentication
 
-Node.js
+**Database**
 
-Express.js
+* SQLite
+* Prisma ORM
 
-REST API architecture
+---
 
-JWT Authentication
+## 2. Prerequisites
 
-Database
+Before running the project locally, ensure you have the following installed:
 
-SQLite
+| Tool              | Version |
+| ----------------- | ------- |
+| Node.js           | >= 18   |
+| npm / pnpm / yarn | Latest  |
+| Git               | Latest  |
 
-Prisma ORM
+You will also need a **TMDB API key**.
 
-Prisma Migrations
-
-Other Tools
-
-ESLint
-
-Prettier
-
-bcrypt (password hashing)
-
-Zod (API validation)
-
-Features
-Authentication
-
-User registration with email, username, and password
-
-Secure login/logout
-
-JWT based authentication
-
-Protected routes
-
-Password hashing with bcrypt
-
-Movie Search & Discovery
-
-Search movies using TMDB API
-
-Debounced search input
-
-Search results showing:
-
-Movie poster
-
-Title
-
-Release year
-
-Average rating
-
-Pagination / infinite scroll
-
-Trending movies on the home page
-
-Movie Details
-
-Movie poster and backdrop
-
-Title and synopsis
-
-Genres
-
-Runtime
-
-Release date
-
-Cast information
-
-Embedded movie trailer (YouTube)
-
-Average rating calculated from user reviews
-
-Review System
-
-Authenticated users can:
-
-Add a review (rating 1–5 + text)
-
-Edit their existing review
-
-Delete their review
-
-View all reviews with:
-
-Username
-
-Rating
-
-Review text
-
-Timestamp
-
-Only one review per user per movie is allowed.
-
-Watchlist (Optional Feature)
-
-Users can:
-
-Add movies to their watchlist
-
-Remove movies
-
-View saved movies on a watchlist page
-
-Project Structure
-movie-review-app/
-│
-├── client/          # Next.js frontend
-│   ├── app/
-│   ├── components/
-│   ├── hooks/
-│   └── services/
-│
-├── server/          # Express backend
-│   ├── controllers/
-│   ├── routes/
-│   ├── middleware/
-│   ├── services/
-│   └── prisma/
-│
-└── README.md
-
-Shared types and API contracts are maintained where possible to ensure consistency between frontend and backend.
-
-Prerequisites
-
-Before running the project locally make sure you have:
-
-Node.js >= 18
-
-npm / pnpm / yarn
-
-TMDB API Key
-
-Create a free API key here:
+Create one here:
 https://developer.themoviedb.org/
 
-Environment Variables
+---
 
-Create a .env file in the backend directory.
+## 3. Getting Started
 
-Example:
+Follow these steps to run the project locally.
 
-DATABASE_URL="file:./dev.db"
-JWT_SECRET="your_jwt_secret"
-JWT_REFRESH_SECRET="your_refresh_secret"
-TMDB_API_KEY="your_tmdb_api_key"
-PORT=5000
+### 1. Clone the repository
 
-A .env.example file is included in the repository.
-
-Getting Started
-
-Clone the repository:
-
+```
 git clone https://github.com/your-username/movie-review-app.git
 cd movie-review-app
+```
 
-Install dependencies:
+### 2. Install dependencies
 
+```
 npm install
+```
 
-Run database migrations:
+### 3. Configure environment variables
 
+Create a `.env` file in the backend folder.
+
+```
+cp .env.example .env
+```
+
+Fill in the required values.
+
+### 4. Run database migrations
+
+```
 npx prisma migrate dev
+```
 
-Seed the database:
+### 5. Seed the database
 
+```
 npm run seed
+```
 
-Start the backend server:
+### 6. Start the development servers
 
+Backend:
+
+```
 npm run server
+```
 
-Start the frontend:
+Frontend:
 
+```
 npm run client
+```
 
-The application will run at:
+Application URLs:
 
+```
 Frontend: http://localhost:3000
-Backend: http://localhost:5000
-API Design
+Backend:  http://localhost:5000
+```
 
-The backend follows RESTful conventions with consistent status codes and error responses.
+---
 
-Example routes:
+## 4. Environment Variables
 
-POST /api/auth/register
-POST /api/auth/login
+| Variable           | Description                       |
+| ------------------ | --------------------------------- |
+| DATABASE_URL       | SQLite database connection string |
+| JWT_SECRET         | Secret used to sign access tokens |
+| JWT_REFRESH_SECRET | Secret used for refresh tokens    |
+| TMDB_API_KEY       | API key for The Movie Database    |
+| PORT               | Backend server port               |
 
-GET /api/movies/search
-GET /api/movies/:id
+## 5. Database Setup
 
-POST /api/reviews
-PUT /api/reviews/:id
-DELETE /api/reviews/:id
+The application uses **SQLite with Prisma ORM**.
 
-GET /api/watchlist
-POST /api/watchlist
-DELETE /api/watchlist/:movieId
+### Run migrations
 
-Input validation is implemented using Zod middleware.
+```
+npx prisma migrate dev
+```
 
-Database Schema (Simplified)
+### Generate Prisma client
 
-Users
+```
+npx prisma generate
+```
 
-id
+### Seed sample data
 
-email
+```
+npm run seed
+```
 
-username
+The seed script creates:
 
-password
+* Sample users
+* Sample reviews
 
-createdAt
+The SQLite database file is excluded from version control.
 
-Reviews
+---
 
-id
+## 6. Architecture Decisions
 
-rating
+Several decisions were made to keep the project maintainable and scalable.
 
-reviewText
+**Next.js App Router**
+Chosen for its modern routing system and support for server components.
 
-userId
+**React Query**
+Used to manage API calls, caching, and background updates efficiently.
 
-movieId
+**JWT Authentication**
+Provides stateless authentication and works well with REST APIs.
 
-createdAt
+**Prisma ORM**
+Simplifies database interaction, schema definition, and migrations.
 
-Watchlist
+**Separation of Client and Server**
+The project separates frontend and backend logic to maintain clear responsibilities.
 
-id
+---
 
-userId
+## 7. Known Limitations
 
-movieId
+Due to the limited time frame for the assignment, some improvements could be made:
 
-Architecture Decisions
+* UI/UX design could be further polished
+* Advanced movie filtering (genre, year, rating) is not implemented
+* Automated tests are minimal
+* Performance optimizations for large review lists could be improved
+* Accessibility features (ARIA labels, keyboard navigation) could be expanded
 
-Next.js App Router was chosen for modern routing and server component support.
-
-React Query handles API caching and background refetching.
-
-Prisma ORM simplifies database interaction and migration management.
-
-JWT authentication enables stateless authentication for API routes.
-
-Tailwind CSS ensures fast UI development with consistent styling.
-
-Known Limitations
-
-Due to time constraints:
-
-UI polish and animations are minimal
-
-Review sorting/filtering could be improved
-
-Movie recommendations are not implemented
-
-Unit tests could be expanded for better coverage
+Future improvements would include adding unit tests, Docker support, better caching strategies, and improved UI responsiveness.
