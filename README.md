@@ -1,183 +1,67 @@
-# Movie Review Application
+# CineVault - Premium Movie Review Application
 
 ## 1. Project Overview
+CineVault is a premium, full-stack movie review application that offers a cinematic experience for movie enthusiasts. Users can explore trending titles, discover films with advanced filters, manage a personal watchlist, and engage with a community through an instant-feedback UI.
 
-The **Movie Review Application** is a full-stack web application that allows users to search for movies, view detailed information, and submit their own reviews.
+The application integrates with **The Movie Database (TMDB) API** and features a robust backend with secure authentication, automated testing, and a seamless Dark/Light mode.
 
-The application integrates with **The Movie Database (TMDB) API** to fetch movie data such as posters, descriptions, and trailers. Users can create accounts, log in securely, and write or manage their own reviews for movies.
+### Key Features
+- **Cinematic UI**: Modern, glassmorphic design with smooth transitions and premium aesthetics.
+- **Dark & Light Mode**: Seamless theme switching with persistence.
+- **Advanced Discovery**: Filter movies by **Genre**, **Release Year**, and **Rating** on both Home and Search pages.
+- **Watchlist Engine**: Save movies to your dedicated watchlist with global state synchronization.
+- **Optimistic UI**: Real-time review submissions and deletions for an instantaneous feel.
+- **Backend Stability**: Core logic protected by unit tests using Vitest.
+- **Accessibility**: WCAG-compliant keyboard navigation and ARIA integration.
 
 ### Tech Stack
-
-**Frontend**
-
-* Next.js (App Router)
-* TypeScript
-* Tailwind CSS
-* React Query
-
-**Backend**
-
-* Node.js
-* Express.js
-* REST API architecture
-* JWT authentication
-
-**Database**
-
-* SQLite
-* Prisma ORM
-
----
+- **Frontend**: Next.js (App Router), TypeScript, Tailwind CSS, React Query, Lucide Icons.
+- **Backend**: Node.js, Express.js, TypeScript, Vitest (Testing), Supertest.
+- **Database**: SQLite with Prisma ORM.
 
 ## 2. Prerequisites
-
-Before running the project locally, ensure you have the following installed:
-
-| Tool              | Version |
-| ----------------- | ------- |
-| Node.js           | >= 18   |
-| npm / pnpm / yarn | Latest  |
-| Git               | Latest  |
-
-You will also need a **TMDB API key**.
-
-Create one here:
-https://developer.themoviedb.org/
-
----
+- **Node.js**: >= 18
+- **TMDB API Key**: Obtain from [TMDB Developer Portal](https://developer.themoviedb.org/)
 
 ## 3. Getting Started
 
-Follow these steps to run the project locally.
+### Local Setup
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/ramiru-nonis/Movie-review-app.git
+   cd Movie-review-app
+   ```
+2. **Install dependencies**
+   ```bash
+   # Both client and server
+   cd server && npm install
+   cd ../client && npm install
+   ```
+3. **Configure environment variables**
+   Create a `.env` file in the `server` folder (refer to `.env.example`).
+4. **Database Migration**
+   ```bash
+   cd server
+   npx prisma migrate dev
+   ```
+5. **Start Servers**
+   - **Backend**: `npm run dev` (Port 5000)
+   - **Frontend**: `npm run dev` (Port 3008)
 
-### 1. Clone the repository
-
-```
-git clone https://github.com/your-username/movie-review-app.git
-cd movie-review-app
-```
-
-### 2. Install dependencies
-
-```
-npm install
-```
-
-### 3. Configure environment variables
-
-Create a `.env` file in the backend folder.
-
-```
-cp .env.example .env
-```
-
-Fill in the required values.
-
-### 4. Run database migrations
-
-```
-npx prisma migrate dev
-```
-
-### 5. Seed the database
-
-```
-npm run seed
+## 4. Testing
+Run the backend unit tests:
+```bash
+cd server
+npm run test
 ```
 
-### 6. Start the development servers
+## 5. Architecture Decisions
+- **React Query Mutations**: Power the **Optimistic UI**, ensuring the app remains responsive during data mutations.
+- **Discovery Engine**: Custom backend logic to leverage TMDB's discovery API for advanced filtering.
+- **Theme Management**: Context-based theme provider with CSS variables for a flicker-free switching experience.
+- **Accessibility First**: Systemic use of focus-visible styles and semantic HTML.
 
-Backend:
-
-```
-npm run server
-```
-
-Frontend:
-
-```
-npm run client
-```
-
-Application URLs:
-
-```
-Frontend: http://localhost:3008
-Backend:  http://localhost:5000
-```
-
----
-
-## 4. Environment Variables
-
-| Variable           | Description                       |
-| ------------------ | --------------------------------- |
-| DATABASE_URL       | SQLite database connection string |
-| JWT_SECRET         | Secret used to sign access tokens |
-| JWT_REFRESH_SECRET | Secret used for refresh tokens    |
-| TMDB_API_KEY       | API key for The Movie Database    |
-| PORT               | Backend server port               |
-
-## 5. Database Setup
-
-The application uses **SQLite with Prisma ORM**.
-
-### Run migrations
-
-```
-npx prisma migrate dev
-```
-
-### Generate Prisma client
-
-```
-npx prisma generate
-```
-
-### Seed sample data
-
-```
-npm run seed
-```
-
-The seed script creates:
-
-* Sample users
-* Sample reviews
-
-The SQLite database file is excluded from version control.
-
----
-
-## 6. Architecture Decisions
-
-Several decisions were made to keep the project maintainable and scalable.
-
-**Next.js App Router**
-Chosen for its modern routing system and support for server components.
-
-**React Query**
-Used to manage API calls, caching, and background updates efficiently.
-
-**JWT Authentication**
-Provides stateless authentication and works well with REST APIs.
-
-**Prisma ORM**
-Simplifies database interaction, schema definition, and migrations.
-
-**Separation of Client and Server**
-The project separates frontend and backend logic to maintain clear responsibilities.
-
----
-
-## 7. Known Limitations
-
-Due to the limited time frame for the assignment, some improvements could be made:
-
-* UI/UX design could be further polished
-* Advanced movie filtering (genre, year, rating) is not implemented
-* Automated tests are minimal
-* Performance optimizations for large review lists could be improved
-* Accessibility features (ARIA labels, keyboard navigation) could be expanded
-
-Future improvements would include adding unit tests, Docker support, better caching strategies, and improved UI responsiveness.
+## 6. Roadmap & Known Limitations
+- TMDB API rate limits may apply.
+- More complex social features (comments on reviews) are currently in development.
+- Multi-language support (i18n) is planned for future releases.
