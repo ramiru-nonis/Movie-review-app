@@ -102,7 +102,7 @@ npm run client
 Application URLs:
 
 ```
-Frontend: http://localhost:3000
+Frontend: http://localhost:3008
 Backend:  http://localhost:5000
 ```
 
