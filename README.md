@@ -45,8 +45,8 @@ The application integrates with **The Movie Database (TMDB) API** and features a
    npx prisma migrate dev
    ```
 5. **Start Servers**
-   - **Backend**: `npm run dev` (Port 5000)
-   - **Frontend**: `npm run dev` (Port 3008)
+   - **Backend**: [http://localhost:5000](`npm run dev`)
+   - **Frontend**: [http://localhost:3000] (`npm run dev`)
 
 ## 4. Testing
 Run the backend unit tests:
