@@ -42,7 +42,7 @@ export const addReview = async (req: Request, res: Response) => {
     res.status(201).json(review);
   } catch (error: any) {
     if (error instanceof z.ZodError) {
-      res.status(400).json({ error: (error as any).errors });
+      res.status(400).json({ error: error.issues });
     } else {
       res.status(500).json({ error: 'Failed to add review' });
     }

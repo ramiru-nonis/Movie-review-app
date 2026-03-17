@@ -35,8 +35,9 @@ export const addToWatchlist = async (req: Request, res: Response) => {
     res.status(201).json(watchlistItem);
   } catch (error: any) {
     if (error instanceof z.ZodError) {
-      res.status(400).json({ error: (error as any).errors });
+      res.status(400).json({ error: error.issues });
     } else {
+      console.error('Add to watchlist error:', error);
       res.status(500).json({ error: 'Failed to add to watchlist' });
     }
   }
@@ -53,6 +54,7 @@ export const getWatchlist = async (req: Request, res: Response) => {
 
     res.status(200).json(watchlist);
   } catch (error) {
+    console.error('Get watchlist error:', error);
     res.status(500).json({ error: 'Failed to fetch watchlist' });
   }
 };
@@ -82,6 +84,7 @@ export const removeFromWatchlist = async (req: Request, res: Response) => {
 
     res.status(200).json({ message: 'Removed from watchlist' });
   } catch (error) {
+    console.error('Remove from watchlist error:', error);
     res.status(500).json({ error: 'Failed to remove from watchlist' });
   }
 };
